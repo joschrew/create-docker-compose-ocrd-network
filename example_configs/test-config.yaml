@@ -1,0 +1,16 @@
+dest: /home/jschrew/loeschmich1/docker-compose.yaml
+processors:
+    - name: ocrd-cis-ocropy-binarize
+      image: ocrd/all:maximum
+    - name: ocrd-tesserocr-recognize
+      image: ocrd/all:maximum
+      volumes:
+        - "$PWD/Fraktur.traineddata:/usr/local/share/tessdata/Fraktur.traineddata"
+      environment:
+        - "TESSDATA_PREFIX=/usr/local/share/tessdata"
+    - name: ocrd-fileformat-transform
+      image: ocrd/all:maximum
+      volumes:
+        - "$PWD/my_ocrd_logging.conf:/ocrd_logging.conf"
+environment:
+    data_dir_host: /data

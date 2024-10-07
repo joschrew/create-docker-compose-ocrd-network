@@ -1,0 +1,27 @@
+type: object
+properties:
+  dest: {type: string}
+  dest_env: {type: string}
+  processing_server_image: {type: string}
+  processors:
+    type: array
+    items:
+      type: object
+      properties:
+        name: {type: string}
+        image: {type: string}
+        environment:
+          type: array
+          items: {type: string}
+        volumes:
+          type: array
+          items: {type: string}
+      required: ["name", "image"]
+  environment:
+    type: object
+    properties:
+      mtu: {type: integer}
+      data_dir_host: {type: string}
+      internal_callback_url: {type: string}
+    required: ["data_dir_host"]
+required: ["dest", "processors"]

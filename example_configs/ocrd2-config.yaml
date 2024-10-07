@@ -1,0 +1,38 @@
+dest: /home/jschrew/mygits/ansible/files/ocrd/network-setup/docker-compose.ocrd2.yaml.test
+dest_env: /home/jschrew/mygits/ansible/files/ocrd/network-setup/ocrd2.env.test
+processing_server_template: ""
+mongodb_template: ""
+rabbitmq_template: ""
+processors:
+    - name: ocrd-cis-ocropy-binarize
+      image: ocrd/all:maximum
+      depends_on: []
+    - name: ocrd-cis-ocropy-denoise
+      image: ocrd/all:maximum
+      depends_on: []
+    - name: ocrd-cis-ocropy-deskew
+      image: ocrd/all:maximum
+      depends_on: []
+    - name: ocrd-cis-ocropy-clip
+      image: ocrd/all:maximum
+      depends_on: []
+    - name: ocrd-cis-ocropy-segment
+      image: ocrd/all:maximum
+      depends_on: []
+    - name: ocrd-cis-ocropy-dewarp
+      image: ocrd/all:maximum
+      depends_on: []
+    - name: ocrd-anybaseocr-crop
+      image: ocrd/all:maximum
+      depends_on: []
+    - name: ocrd-segment-repair
+      image: loeschmich-1
+      depends_on: []
+    - name: ocrd-dummy
+      image: ocrd/all:maximum
+      depends_on: []
+environment:
+    mtu: 1300
+    data_dir_host: /data
+    rabbitmq_url: amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@10.254.1.8:5672
+    mongodb_url: mongodb://${MONGODB_USER}:${MONGODB_PASS}@10.254.1.8:27018

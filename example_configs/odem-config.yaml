@@ -1,0 +1,36 @@
+dest: /home/jschrew/loeschmich2/docker-compose.yaml
+processors:
+    - name: ocrd-cis-ocropy-binarize
+      image: ocrd/all:maximum
+    - name: ocrd-anybaseocr-crop
+      image: ocrd/all:maximum
+    - name: ocrd-cis-ocropy-denoise
+      image: ocrd/all:maximum
+    - name: ocrd-cis-ocropy-deskew
+      image: ocrd/all:maximum
+    - name: ocrd-tesserocr-segment-region
+      image: ocrd/tesserocr
+      volumes:
+        - "$PWD/Fraktur.traineddata:/usr/local/share/tessdata/Fraktur.traineddata"
+      environment:
+        - "TESSDATA_PREFIX=/usr/local/share/tessdata"
+    - name: ocrd-segment-repair
+      image: ocrd/segment
+    - name: ocrd-cis-ocropy-clip
+      image: ocrd/all:maximum
+    - name: ocrd-cis-ocropy-segment
+      image: ocrd/all:maximum
+    - name: ocrd-cis-ocropy-dewarp
+      image: ocrd/all:maximum
+    - name: ocrd-tesserocr-recognize
+      image: ocrd/tesserocr
+      volumes:
+        - "$PWD/Fraktur.traineddata:/usr/local/share/tessdata/Fraktur.traineddata"
+      environment:
+        - "TESSDATA_PREFIX=/usr/local/share/tessdata"
+    - name: ocrd-fileformat-transform
+      image: ocrd/all:maximum
+      volumes:
+        - "$PWD/my_ocrd_logging.conf:/ocrd_logging.conf"
+environment:
+    data_dir_host: /tmp/mydata

@@ -1,0 +1,2 @@
+cis-ocropy-binarize      -I DEFAULT -O BIN-3
+tesserocr-recognize      -I BIN-3     -O PAGE-3 -P textequiv_level word -P model Fraktur

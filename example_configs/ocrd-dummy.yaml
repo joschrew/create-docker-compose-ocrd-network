@@ -1,0 +1,7 @@
+dest: /home/jschrew/loeschmich-pr1284/docker-compose.yaml
+processors:
+    - name: ocrd-dummy
+      image: loeschmich-ocrd-core-2
+environment:
+    data_dir_host: /data
+processing_server_image: loeschmich-ocrd-core-2
